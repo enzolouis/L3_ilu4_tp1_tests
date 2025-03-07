@@ -17,11 +17,11 @@ public class BellmanFord {
 	Arete aretes[];
 	
 	// Constructeur qui permet d'initialiser la liste des arêtes
-	BellmanFord(int v, int e) {
-		nb_sommets = v;
-	    nb_aretes = e;
-	    aretes = new Arete[e];
-	    for (int i = 0; i < e; ++i)
+	BellmanFord(int nb_sommets, int nb_aretes) {
+		this.nb_sommets = nb_sommets;
+	    this.nb_aretes = nb_aretes;
+	    this.aretes = new Arete[nb_aretes];
+	    for (int i = 0; i < nb_aretes; ++i)
 	    	aretes[i] = new Arete();
 	}
 	
