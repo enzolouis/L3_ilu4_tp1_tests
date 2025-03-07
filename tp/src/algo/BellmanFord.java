@@ -4,116 +4,115 @@ import java.util.Arrays;
 
 // Algo from https://www.geeksforgeeks.org/java-program-to-implement-bellman-ford-algorithm/
 public class BellmanFord {
-	// Graph is Created Using Edge Class
-	static class Edge {
+	// Création d'une arête du graphe
+	static class Arete {
 		int source, destination, weight;
 
-		Edge() {
+		Arete() {
 			source = destination = weight = 0;
 		}
 	}
 	
-	int V, E;
-	Edge edge[];
+	int nb_sommets, nb_aretes;
+	Arete aretes[];
 	
-	// Constructor to initialize the graph
+	// Constructeur qui permet d'initialiser la liste des arêtes
 	BellmanFord(int v, int e) {
-		V = v;
-	    E = e;
-	    edge = new Edge[e];
+		nb_sommets = v;
+	    nb_aretes = e;
+	    aretes = new Arete[e];
 	    for (int i = 0; i < e; ++i)
-	    	edge[i] = new Edge();
+	    	aretes[i] = new Arete();
 	}
 	
-	// Bellman-Ford Algorithm to find shortest paths from source to all vertices
+	// Implémentation de l'algorithme de Bellman-Ford
 	void BellmanFordAlgo(BellmanFord graph, int source) {
-	    int V = graph.V, E = graph.E;
-	    int dist[] = new int[V];
+	    int nb_sommets = graph.nb_sommets, nb_aretes = graph.nb_aretes;
+	    int dist[] = new int[nb_sommets];
 	
-	     // Step 1: Initialize distances from source to all other vertices as INFINITE
+	     // Etape 1: Initialise la distance du sommet source à tous les autres sommets à une valeur infinie
 	     Arrays.fill(dist, Integer.MAX_VALUE);
 	     dist[source] = 0;
 	
-	     // Step 2: Relax all edges |V| - 1 times.
-	     for (int i = 1; i < V; ++i) {
-	         for (int j = 0; j < E; ++j) {
-	             int u = graph.edge[j].source;
-	             int v = graph.edge[j].destination;
-	             int weight = graph.edge[j].weight;
+	     // Etape 2: Parcours de toutes les arêtes |nb_sommets| - 1 fois.
+	     for (int i = 1; i < nb_sommets; ++i) {
+	         for (int j = 0; j < nb_aretes; ++j) {
+	             int u = graph.aretes[j].source;
+	             int v = graph.aretes[j].destination;
+	             int weight = graph.aretes[j].weight;
 	             if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v])
 	                 dist[v] = dist[u] + weight;
 	         }
 	     }
 	
-	     // Step 3: Check for negative-weight cycles
-	     for (int j = 0; j < E; ++j) {
-	         int u = graph.edge[j].source;
-	         int v = graph.edge[j].destination;
-	         int weight = graph.edge[j].weight;
+	     // Etape 3: Verification de la non existence d'un cycle négatif
+	     for (int j = 0; j < nb_aretes; ++j) {
+	         int u = graph.aretes[j].source;
+	         int v = graph.aretes[j].destination;
+	         int weight = graph.aretes[j].weight;
 	         if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
 	             System.out.println("Graph contains negative weight cycle");
 	             return;
 	         }
 	     }
 	
-	     // Print distances from source to all vertices
-	     printDistances(dist, V);
+	     printDistances(dist, nb_sommets);
 	 }
 	
-	 // Print distances from source to all vertices
-	void printDistances(int dist[], int V) {
-		System.out.println("Vertex Distance from Source:");
-	    for (int i = 0; i < V; ++i)
+	 // Affichage de la distance du sommet source à tous les autres sommets
+	void printDistances(int dist[], int nb_sommets) {
+		System.out.println("Sommets Distance from Source:");
+	    for (int i = 0; i < nb_sommets; ++i)
 	    	System.out.println(i + "\t\t" + dist[i]);
 	}
 	
 	public static void main(String[] args) {
-		int V = 5;
-		int E = 8;
-		BellmanFord graph = new BellmanFord(V, E);
+		int nb_sommets = 5;
+		int nb_aretes = 8;
+		BellmanFord graph = new BellmanFord(nb_sommets, nb_aretes);
 	
-		// Define edges
-		// Edge 0-1
-		graph.edge[0].source = 0;
-		graph.edge[0].destination = 1;
-		graph.edge[0].weight = -1;
+		// Définition des arêtes
+		// Arêtes 0-1
+		graph.aretes[0].source = 0;
+		graph.aretes[0].destination = 1;
+		graph.aretes[0].weight = -1;
 		 
-		// Edge 0-2
-	     graph.edge[1].source = 0;
-	     graph.edge[1].destination = 2;
-	     graph.edge[1].weight = 4;
+		// Arêtes 0-2
+	     graph.aretes[1].source = 0;
+	     graph.aretes[1].destination = 2;
+	     graph.aretes[1].weight = 4;
 	   
-	     // Edge 1-2
-	     graph.edge[2].source = 1;
-	     graph.edge[2].destination = 2;
-	     graph.edge[2].weight = 3;
+	     // Arêtes 1-2
+	     graph.aretes[2].source = 1;
+	     graph.aretes[2].destination = 2;
+	     graph.aretes[2].weight = 3;
 	   
-	     // Edge 1-3
-	     graph.edge[3].source = 1;
-	     graph.edge[3].destination = 3;
-	     graph.edge[3].weight = 2;
+	     // Arêtes 1-3
+	     graph.aretes[3].source = 1;
+	     graph.aretes[3].destination = 3;
+	     graph.aretes[3].weight = 2;
 	   
-	     // Edge 1-4
-	     graph.edge[4].source = 1;
-	     graph.edge[4].destination = 4;
-	     graph.edge[4].weight = 2;
+	     // nb_aretesdge 1-4
+	     graph.aretes[4].source = 1;
+	     graph.aretes[4].destination = 4;
+	     graph.aretes[4].weight = 2;
 	   
-	     // Edge 3-2
-	     graph.edge[5].source = 3;
-	     graph.edge[5].destination = 2;
-	     graph.edge[5].weight = 5;
+	     // Arêtes 3-2
+	     graph.aretes[5].source = 3;
+	     graph.aretes[5].destination = 2;
+	     graph.aretes[5].weight = 5;
 	   
-	     // Edge 3-1
-	     graph.edge[6].source = 3;
-	     graph.edge[6].destination = 1;
-	     graph.edge[6].weight = 1;
+	     // Arêtes 3-1
+	     graph.aretes[6].source = 3;
+	     graph.aretes[6].destination = 1;
+	     graph.aretes[6].weight = 1;
 	   
-	     // Edge 4-3
-	     graph.edge[7].source = 4;
-	     graph.edge[7].destination = 3;
-	     graph.edge[7].weight = -3;
+	     // Arêtes 4-3
+	     graph.aretes[7].source = 4;
+	     graph.aretes[7].destination = 3;
+	     graph.aretes[7].weight = -3;
 	
-	     // Execute Bellman-Ford algorithm
+	     // Execute l'algorithme de Bellman-Ford
 	     graph.BellmanFordAlgo(graph, 0);
 	 }
 }
