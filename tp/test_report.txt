@@ -1,0 +1,9 @@
+Rapport de Test:
+Total tests: 4
+Tests réussis: 3
+Taux de réussite: 75.0%
+
+Test 1: PASS
+Test 2: PASS
+Test 3: PASS
+Test 4: FAIL
