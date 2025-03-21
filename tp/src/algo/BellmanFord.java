@@ -13,7 +13,7 @@ public class BellmanFord {
 		}
 	}
 	
-	int nb_sommets, nb_aretes;
+	int nb_sommets, nb_aretes, currentArreteAjoute;
 	Arete aretes[];
 	
 	// Constructeur qui permet d'initialiser la liste des arêtes
@@ -23,12 +23,21 @@ public class BellmanFord {
 	    this.aretes = new Arete[nb_aretes];
 	    for (int i = 0; i < nb_aretes; ++i)
 	    	aretes[i] = new Arete();
+	    
+	    int currentArreteAjoute = 0;
+	}
+	
+	void addArrete(int source, int destination, int weight) {
+		aretes[currentArreteAjoute].source = source;
+		aretes[currentArreteAjoute].destination  = destination;
+		aretes[currentArreteAjoute].weight = weight;
+		currentArreteAjoute++;
 	}
 	
 	// Implémentation de l'algorithme de Bellman-Ford
-	void BellmanFordAlgo(BellmanFord graph, int source) {
+	Integer[] bellmanFordAlgo(BellmanFord graph, int source) {
 	    int nb_sommets = graph.nb_sommets, nb_aretes = graph.nb_aretes;
-	    int dist[] = new int[nb_sommets];
+	    Integer dist[] = new Integer[nb_sommets];
 	
 	     // Etape 1: Initialise la distance du sommet source à tous les autres sommets à une valeur infinie
 	     Arrays.fill(dist, Integer.MAX_VALUE);
@@ -52,67 +61,10 @@ public class BellmanFord {
 	         int weight = graph.aretes[j].weight;
 	         if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
 	             System.out.println("Graph contains negative weight cycle");
-	             return;
+	             return new Integer[0];
 	         }
 	     }
 	
-	     printDistances(dist, nb_sommets);
-	 }
-	
-	 // Affichage de la distance du sommet source à tous les autres sommets
-	void printDistances(int dist[], int nb_sommets) {
-		System.out.println("Sommets Distance from Source:");
-	    for (int i = 0; i < nb_sommets; ++i)
-	    	System.out.println(i + "\t\t" + dist[i]);
-	}
-	
-	public static void main(String[] args) {
-		int nb_sommets = 5;
-		int nb_aretes = 8;
-		BellmanFord graph = new BellmanFord(nb_sommets, nb_aretes);
-	
-		// Définition des arêtes
-		// Arêtes 0-1
-		graph.aretes[0].source = 0;
-		graph.aretes[0].destination = 1;
-		graph.aretes[0].weight = -1;
-		 
-		// Arêtes 0-2
-	     graph.aretes[1].source = 0;
-	     graph.aretes[1].destination = 2;
-	     graph.aretes[1].weight = 4;
-	   
-	     // Arêtes 1-2
-	     graph.aretes[2].source = 1;
-	     graph.aretes[2].destination = 2;
-	     graph.aretes[2].weight = 3;
-	   
-	     // Arêtes 1-3
-	     graph.aretes[3].source = 1;
-	     graph.aretes[3].destination = 3;
-	     graph.aretes[3].weight = 2;
-	   
-	     // nb_aretesdge 1-4
-	     graph.aretes[4].source = 1;
-	     graph.aretes[4].destination = 4;
-	     graph.aretes[4].weight = 2;
-	   
-	     // Arêtes 3-2
-	     graph.aretes[5].source = 3;
-	     graph.aretes[5].destination = 2;
-	     graph.aretes[5].weight = 5;
-	   
-	     // Arêtes 3-1
-	     graph.aretes[6].source = 3;
-	     graph.aretes[6].destination = 1;
-	     graph.aretes[6].weight = 1;
-	   
-	     // Arêtes 4-3
-	     graph.aretes[7].source = 4;
-	     graph.aretes[7].destination = 3;
-	     graph.aretes[7].weight = -3;
-	
-	     // Execute l'algorithme de Bellman-Ford
-	     graph.BellmanFordAlgo(graph, 0);
+	     return dist;
 	 }
 }
