@@ -42,6 +42,8 @@ public class BellmanFord {
 	     // Etape 1: Initialise la distance du sommet source à tous les autres sommets à une valeur infinie
 	     Arrays.fill(dist, Integer.MAX_VALUE);
 	     dist[source] = 0;
+	     
+	     System.out.println(Arrays.toString(dist));
 	
 	     // Etape 2: Parcours de toutes les arêtes |nb_sommets| - 1 fois.
 	     for (int i = 1; i < nb_sommets; ++i) {
@@ -49,6 +51,7 @@ public class BellmanFord {
 	             int u = graph.aretes[j].source;
 	             int v = graph.aretes[j].destination;
 	             int weight = graph.aretes[j].weight;
+	             System.out.println(dist[u] + "dddd/" + u);
 	             if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v])
 	                 dist[v] = dist[u] + weight;
 	         }
@@ -59,8 +62,9 @@ public class BellmanFord {
 	         int u = graph.aretes[j].source;
 	         int v = graph.aretes[j].destination;
 	         int weight = graph.aretes[j].weight;
+	         System.out.println(dist[u] != Integer.MAX_VALUE);
+	         System.out.println(dist[u] + "/"+u);
 	         if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
-	             System.out.println("Graph contains negative weight cycle");
 	             return new Integer[0];
 	         }
 	     }
