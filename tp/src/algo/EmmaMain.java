@@ -6,7 +6,6 @@ public class EmmaMain {
     public static void main(String[] args) {
         testCasStandard();
         testCasCycleNegatif();
-        testCasSommetIsole();
     }
 
     // Cas classique
@@ -22,7 +21,7 @@ public class EmmaMain {
 		graphe.addArrete(2, 4, 3);
 		graphe.addArrete(2, 5, -1);
 		graphe.addArrete(4, 5, 3);
-		System.out.println(Arrays.toString(graphe.bellmanFordAlgo(graphe, 0)));
+		System.out.println(Arrays.toString(graphe.bellmanFordAlgo(graphe, 2)));
     }
 
     // Cas cycle négatif
@@ -33,14 +32,6 @@ public class EmmaMain {
         graphe.addArrete(1, 2, -2);
         graphe.addArrete(2, 0, -1); 
 
-        System.out.println(Arrays.toString(graphe.bellmanFordAlgo(graphe, 0)));
-    }
-
-    // Cas sommet isolé
-    private static void testCasSommetIsole() {
-        System.out.println("Test Cas Sommet Isolé :");
-        BellmanFord graphe = new BellmanFord(3, 1);
-        graphe.addArrete(1, 2, 5); 
         System.out.println(Arrays.toString(graphe.bellmanFordAlgo(graphe, 0)));
     }
 
