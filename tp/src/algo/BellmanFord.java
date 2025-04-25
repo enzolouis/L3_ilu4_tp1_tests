@@ -6,14 +6,14 @@ import java.util.Arrays;
 public class BellmanFord {
 	// Création d'une arête du graphe
 	static class Arete {
-		int source, destination, weight;
+		int source, destination, poids;
 
 		Arete() {
-			source = destination = weight = 0;
+			source = destination = poids = 0;
 		}
 	}
 	
-	int nb_sommets, nb_aretes, currentArreteAjoute;
+	int nb_sommets, nb_aretes, currentAreteAjoute;
 	Arete aretes[];
 	
 	// Constructeur qui permet d'initialiser la liste des arêtes
@@ -24,14 +24,14 @@ public class BellmanFord {
 	    for (int i = 0; i < nb_aretes; ++i)
 	    	aretes[i] = new Arete();
 	    
-	    int currentArreteAjoute = 0;
+	    currentAreteAjoute = 0;
 	}
 	
-	void addArrete(int source, int destination, int weight) {
-		aretes[currentArreteAjoute].source = source;
-		aretes[currentArreteAjoute].destination  = destination;
-		aretes[currentArreteAjoute].weight = weight;
-		currentArreteAjoute++;
+	void addArete(int source, int destination, int weight) {
+		aretes[currentAreteAjoute].source = source;
+		aretes[currentAreteAjoute].destination  = destination;
+		aretes[currentAreteAjoute].poids = weight;
+		currentAreteAjoute++;
 	}
 	
 	// Implémentation de l'algorithme de Bellman-Ford
@@ -43,18 +43,14 @@ public class BellmanFord {
 	     Arrays.fill(dist, Integer.MAX_VALUE);
 	     dist[source] = 0;
 	     
-	     System.out.println(Arrays.toString(dist));
-	
 	     // Etape 2: Parcours de toutes les arêtes |nb_sommets| - 1 fois.
 	     for (int i = 1; i < nb_sommets; ++i) {
 	         for (int j = 0; j < nb_aretes; ++j) {
 	             int u = graph.aretes[j].source;
 	             int v = graph.aretes[j].destination;
-	             int weight = graph.aretes[j].weight;
-	             //System.out.println(dist[u] +"!="+ Integer.MAX_VALUE);
-	             //System.out.println(dist[u] + weight <dist[v]);
-	             if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v])
-	                 dist[v] = dist[u] + weight;
+	             int poids = graph.aretes[j].poids;
+	             if (dist[u] != Integer.MAX_VALUE && dist[u] + poids < dist[v])
+	                 dist[v] = dist[u] + poids;
 	         }
 	     }
 	
@@ -62,10 +58,9 @@ public class BellmanFord {
 	     for (int j = 0; j < nb_aretes; ++j) {
 	         int u = graph.aretes[j].source;
 	         int v = graph.aretes[j].destination;
-	         int weight = graph.aretes[j].weight;
-	         if (dist[u] != Integer.MAX_VALUE && dist[u] + weight < dist[v]) {
+	         int poids = graph.aretes[j].poids;
+	         if (dist[u] != Integer.MAX_VALUE && dist[u] + poids < dist[v])
 	             return new Integer[0];
-	         }
 	     }
 	
 	     return dist;
