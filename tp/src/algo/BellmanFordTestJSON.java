@@ -32,7 +32,7 @@ public class BellmanFordTestJSON {
             for (JeuDeTestEtOracleFormat j : fic) {
             	BellmanFord b = new BellmanFord(j.nbSommets, j.nbArretes);
             	for (List<Integer> a : j.arretes) {
-            		b.addArrete(a.get(0), a.get(1), a.get(2));
+            		b.addArete(a.get(0), a.get(1), a.get(2));
             	}
             	
             	Integer[] result = b.bellmanFordAlgo(b, j.source);
