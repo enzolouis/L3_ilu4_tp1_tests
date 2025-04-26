@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class testLimites {
+class TestLimites {
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -29,10 +29,10 @@ class testLimites {
 	@Test
 	void testGrapheClassique() {
 		BellmanFord graphe = new BellmanFord(2,4);
-		graphe.addArrete(0, 0, Integer.MIN_VALUE);
-		graphe.addArrete(0, 1, Integer.MAX_VALUE);
-		graphe.addArrete(1, 0, Integer.MIN_VALUE + 1);
-		graphe.addArrete(1, 0, Integer.MAX_VALUE - 1);
+		graphe.addArete(0, 0, Integer.MIN_VALUE);
+		graphe.addArete(0, 1, Integer.MAX_VALUE);
+		graphe.addArete(1, 0, Integer.MIN_VALUE + 1);
+		graphe.addArete(1, 0, Integer.MAX_VALUE - 1);
 		Integer[] distance = {-2147483647, 0};
 		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 1),distance);
 	}
@@ -85,8 +85,8 @@ class testLimites {
 	@Test
 	void testSourceDestinationSommetInvalideInferieur() {
 		BellmanFord graphe = new BellmanFord(2,2);
-		graphe.addArrete(-1, -1, 6);
-		graphe.addArrete(1, 1, 6);
+		graphe.addArete(-1, -1, 6);
+		graphe.addArete(1, 1, 6);
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
 			graphe.bellmanFordAlgo(graphe, 1);
 	    });
@@ -95,8 +95,8 @@ class testLimites {
 	@Test
 	void testSourceDestinationSommetInvalideSuperieur() {
 		BellmanFord graphe = new BellmanFord(2,2);
-		graphe.addArrete(2, 2, 6);
-		graphe.addArrete(1, 1, 6);
+		graphe.addArete(2, 2, 6);
+		graphe.addArete(1, 1, 6);
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
 			graphe.bellmanFordAlgo(graphe, 1);
 	    });
@@ -105,22 +105,20 @@ class testLimites {
 	@Test
 	void testNbAreteAjouteInvalide() {
 		BellmanFord graphe = new BellmanFord(2,1);
-		graphe.addArrete(0, 1, 6);
+		graphe.addArete(0, 1, 6);
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-			graphe.addArrete(1, 0, 3);
+			graphe.addArete(1, 0, 3);
 	    });
 	}
 	
 	@Test
 	void testNbSommetMax() {
 		BellmanFord graphe = new BellmanFord(Integer.MAX_VALUE,1);
-		graphe.addArrete(0, 0, 3);
+		graphe.addArete(0, 0, 3);
 		Integer[] distance = new Integer[Integer.MAX_VALUE];
 		for (int i = 0; i<Integer.MAX_VALUE; i++) {
 			distance[i] = 2147483647;
 		}
 		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 1),distance);
 	}
-
-
 }
