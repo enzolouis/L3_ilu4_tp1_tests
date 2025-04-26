@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class testLimites {
+class TestLimites {
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -121,6 +121,4 @@ class testLimites {
 		}
 		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 1),distance);
 	}
-
-
 }
