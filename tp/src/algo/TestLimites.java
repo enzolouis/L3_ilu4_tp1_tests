@@ -156,7 +156,28 @@ class TestLimites {
 	    });
 	}
 	
+	// J16 : C5-Invalide-1
+	@Test
+	void testPoidsDepassementSuperieur() {
+		BellmanFord graphe = new BellmanFord(2,1);
+		graphe.addArete(0, 1, Integer.MAX_VALUE+1);
+		Integer[] distance = {0,-2147483648};
+		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 0),distance); // on s'attend à un dépassement de valeur ici MAN INT + 1 = MIN INT
+	}
+	
+	// J17 : C5-Invalide-2
+	@Test
+	void testPoidsDepassementInferieur() {
+		BellmanFord graphe = new BellmanFord(2,1);
+		graphe.addArete(0, 1, Integer.MIN_VALUE-1);
+		Integer[] distance = {0,2147483647};
+		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 0),distance); // on s'attend à un dépassement de valeur ici MIN INT - 1 = MAX INT
+	}
+	
+	
+	// J18 : C8-Valide-3
 	/*
+	@Test
 	void testNbSommetMax() {
 		BellmanFord graphe = new BellmanFord(Integer.MAX_VALUE,1);
 		graphe.addArete(0, 0, 3);
@@ -165,6 +186,36 @@ class TestLimites {
 			distance[i] = 2147483647;
 		}
 		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 1),distance);
+	}
+	
+	// J19 : C8-Valide-4
+	@Test
+	void testNbSommetMaxMoinsUn() {
+		BellmanFord graphe = new BellmanFord(Integer.MAX_VALUE-1,1);
+		graphe.addArete(0, 0, 3);
+		Integer[] distance = new Integer[Integer.MAX_VALUE-1];
+		for (int i = 0; i<Integer.MAX_VALUE; i++) {
+			distance[i] = 2147483647;
+		}
+		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 1),distance);
+	}
+	
+	// J20 : C9-Valide-3
+	@Test
+	void testNbAretesMax() {
+		BellmanFord graphe = new BellmanFord(1,Integer.MAX_VALUE);
+		graphe.addArete(0, 0, 3);
+		Integer[] distance = {0};
+		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 0),distance);
+	}
+	
+	// J21 : C9-Valide-4
+	@Test
+	void testNbAretesMax() {
+		BellmanFord graphe = new BellmanFord(1,Integer.MAX_VALUE-1);
+		graphe.addArete(0, 0, 3);
+		Integer[] distance = {0};
+		assertArrayEquals(graphe.bellmanFordAlgo(graphe, 0),distance);
 	}
 	*/
 }
