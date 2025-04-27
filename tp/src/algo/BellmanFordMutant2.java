@@ -59,7 +59,7 @@ public class BellmanFordMutant2 {
 	         int u = graph.aretes[j].source;
 	         int v = graph.aretes[j].destination;
 	         int poids = graph.aretes[j].poids;
-	         if (dist[u] != Integer.MAX_VALUE && dist[u] + poids < dist[v])
+	         if (dist[u] != Integer.MAX_VALUE && dist[u] + poids > dist[v])
 	             return new Integer[0];
 	     }
 	

@@ -37,7 +37,7 @@ public class BellmanFordMutant3 {
 	// Implémentation de l'algorithme de Bellman-Ford
 	Integer[] bellmanFordAlgo(BellmanFordMutant3 graph, int source) {
 	    int nb_sommets = graph.nb_sommets, nb_aretes = graph.nb_aretes;
-	    Integer dist[] = new Integer[nb_sommets];
+	    Integer dist[] = new Integer[nb_sommets + 1];
 	
 	     // Etape 1: Initialise la distance du sommet source à tous les autres sommets à une valeur infinie
 	     Arrays.fill(dist, Integer.MAX_VALUE);
